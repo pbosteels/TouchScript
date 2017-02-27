@@ -118,7 +118,8 @@ namespace TouchScript.InputSources
 
         private void init()
         {
-            hMainWindow = GetForegroundWindow();
+            //hMainWindow = GetForegroundWindow();
+            hMainWindow = FindWindow(null, "QNLTotemWall");
 
             newWndProc = wndProc;
             newWndProcPtr = Marshal.GetFunctionPointerForDelegate(newWndProc);
@@ -271,6 +272,9 @@ namespace TouchScript.InputSources
 
         [DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
         [DllImport("user32.dll", EntryPoint = "SetWindowLong")]
         private static extern int SetWindowLong32(IntPtr hWnd, int nIndex, int dwNewLong);
